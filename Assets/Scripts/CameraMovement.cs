@@ -43,24 +43,24 @@ public class CameraMovement : MonoBehaviour
          * Speed is calculated by the normalisation algorithm here: https://www.codecademy.com/articles/normalization times a constant.
          * the speed is then added to the position * time taken for the frame to pass. (essentially v = u + at)
          */
-        if (Input.mousePosition.y > screenHeight - screenHeightBoundary && Move(Directions.Up) != null)
+        if (Input.mousePosition.y > screenHeight - screenHeightBoundary && GetSpriteFromDirectionAndPixels(Directions.Up) != null)
         {
             float speed = (Input.mousePosition.y - (screenHeight - screenHeightBoundary))
                 / (screenHeight - (screenHeight - screenHeightBoundary)) * speedConst;
             cameraPosition.y += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.y < 0 + screenHeightBoundary && Move(Directions.Down) != null)
+        else if (Input.mousePosition.y < 0 + screenHeightBoundary && GetSpriteFromDirectionAndPixels(Directions.Down) != null)
         {
             float speed = (Input.mousePosition.y - screenHeightBoundary) / (-screenHeightBoundary) * speedConst;
             cameraPosition.y -= speed * Time.deltaTime;
         }
-        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && Move(Directions.Right, 1) != null)
+        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Right, 1) != null)
         {
             float speed = (Input.mousePosition.x - (screenWidth - screenWidthBoundary)) 
                 / (screenWidth - (screenWidth - screenWidthBoundary)) * speedConst;
             cameraPosition.x += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.x < 0 + screenWidthBoundary && Move(Directions.Left, 1) != null)
+        else if (Input.mousePosition.x < 0 + screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Left, 1) != null)
         {
             float speed = (Input.mousePosition.x - screenWidthBoundary) / (-screenWidthBoundary) * speedConst;
             cameraPosition.x -= speed * Time.deltaTime;
@@ -72,7 +72,7 @@ public class CameraMovement : MonoBehaviour
     /// Finds the grid at that position and returns the sprite at that location.
     /// </summary>
     /// <returns>Returns the sprite of the block.</returns>
-    private Sprite Move(Directions direction, float x = 1)
+    private Sprite GetSpriteFromDirectionAndPixels(Directions direction, float x = 1)
     {
         Vector3 usedScreenPoint = default;
         switch (direction)
