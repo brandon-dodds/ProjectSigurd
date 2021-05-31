@@ -64,7 +64,6 @@ public class CameraMovement : MonoBehaviour
     /// The function takes the screen to world point of the camera position. 
     /// Finds the grid at that position and returns the sprite at that location.
     /// </summary>
-    /// <param name="down">The float value of how far the camera moves downward.</param>
     /// <returns>Returns the sprite of the block.</returns>
     private Sprite MoveDown()
     {
@@ -76,7 +75,6 @@ public class CameraMovement : MonoBehaviour
     /// The function takes the screen to world point of the camera position. 
     /// Finds the grid at that position and returns the sprite at that location.
     /// </summary>
-    /// <param name="up">The float value of how far the camera moves upward.</param>
     /// <returns>Returns the sprite of the block.</returns>
     private Sprite MoveUp()
     {
@@ -88,7 +86,6 @@ public class CameraMovement : MonoBehaviour
     /// The function takes the screen to world point of the camera position. 
     /// Finds the grid at that position and returns the sprite at that location.
     /// </summary>
-    /// <param name="right">The float value of how far the camera moves rightward.</param>
     /// <returns>Returns the sprite of the block.</returns>
     private Sprite MoveRight()
     {
@@ -100,7 +97,6 @@ public class CameraMovement : MonoBehaviour
     /// The function takes the screen to world point of the camera position. 
     /// Finds the grid at that position and returns the sprite at that location.
     /// </summary>
-    /// <param name="left">The float value of how far the camera moves leftward.</param>
     /// <returns>Returns the sprite of the block.</returns>
     private Sprite MoveLeft()
     {
