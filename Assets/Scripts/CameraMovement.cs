@@ -54,13 +54,13 @@ public class CameraMovement : MonoBehaviour
             float speed = (Input.mousePosition.y - screenHeightBoundary) / (-screenHeightBoundary) * speedConst;
             cameraPosition.y -= speed * Time.deltaTime;
         }
-        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Right, 1) != null)
+        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Right) != null)
         {
             float speed = (Input.mousePosition.x - (screenWidth - screenWidthBoundary)) 
                 / (screenWidth - (screenWidth - screenWidthBoundary)) * speedConst;
             cameraPosition.x += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.x < 0 + screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Left, 1) != null)
+        else if (Input.mousePosition.x < 0 + screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Left) != null)
         {
             float speed = (Input.mousePosition.x - screenWidthBoundary) / (-screenWidthBoundary) * speedConst;
             cameraPosition.x -= speed * Time.deltaTime;
