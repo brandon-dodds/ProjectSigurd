@@ -54,13 +54,13 @@ public class CameraMovement : MonoBehaviour
             float speed = (Input.mousePosition.y - screenHeightBoundary) / (-screenHeightBoundary) * speedConst;
             cameraPosition.y -= speed * Time.deltaTime;
         }
-        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && Move(Directions.Right) != null)
+        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && Move(Directions.Right, 1) != null)
         {
             float speed = (Input.mousePosition.x - (screenWidth - screenWidthBoundary)) 
                 / (screenWidth - (screenWidth - screenWidthBoundary)) * speedConst;
             cameraPosition.x += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.x < 0 + screenWidthBoundary && Move(Directions.Left) != null)
+        else if (Input.mousePosition.x < 0 + screenWidthBoundary && Move(Directions.Left, 1) != null)
         {
             float speed = (Input.mousePosition.x - screenWidthBoundary) / (-screenWidthBoundary) * speedConst;
             cameraPosition.x -= speed * Time.deltaTime;
@@ -72,22 +72,22 @@ public class CameraMovement : MonoBehaviour
     /// Finds the grid at that position and returns the sprite at that location.
     /// </summary>
     /// <returns>Returns the sprite of the block.</returns>
-    private Sprite Move(Directions direction)
+    private Sprite Move(Directions direction, float x = 1)
     {
         Vector3 usedScreenPoint = default;
         switch (direction)
         {
             case Directions.Up:
-                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height + 1));
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height + x));
                 break;
             case Directions.Down:
-                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, -1));
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, -x));
                 break;
             case Directions.Left:
-                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(-1, Screen.height / 2));
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(-x, Screen.height / 2));
                 break;
             case Directions.Right:
-                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + 1, Screen.height / 2));
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + x, Screen.height / 2));
                 break;
         }
         Vector3Int cellCoordinate = grid.WorldToCell(usedScreenPoint);
