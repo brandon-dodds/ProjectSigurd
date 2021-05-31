@@ -19,6 +19,13 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Grid grid;
     [SerializeField] private Tilemap pathMap;
     private const int speedConst = 5;
+    private enum Directions
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
     void Start()
     {
         screenWidth = Screen.width;
@@ -36,24 +43,24 @@ public class CameraMovement : MonoBehaviour
          * Speed is calculated by the normalisation algorithm here: https://www.codecademy.com/articles/normalization times a constant.
          * the speed is then added to the position * time taken for the frame to pass. (essentially v = u + at)
          */
-        if (Input.mousePosition.y > screenHeight - screenHeightBoundary && MoveUp() != null)
+        if (Input.mousePosition.y > screenHeight - screenHeightBoundary && Move(Directions.Up) != null)
         {
             float speed = (Input.mousePosition.y - (screenHeight - screenHeightBoundary))
                 / (screenHeight - (screenHeight - screenHeightBoundary)) * speedConst;
             cameraPosition.y += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.y < 0 + screenHeightBoundary && MoveDown() != null)
+        else if (Input.mousePosition.y < 0 + screenHeightBoundary && Move(Directions.Down) != null)
         {
             float speed = (Input.mousePosition.y - screenHeightBoundary) / (-screenHeightBoundary) * speedConst;
             cameraPosition.y -= speed * Time.deltaTime;
         }
-        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && MoveRight() != null)
+        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && Move(Directions.Right) != null)
         {
             float speed = (Input.mousePosition.x - (screenWidth - screenWidthBoundary)) 
                 / (screenWidth - (screenWidth - screenWidthBoundary)) * speedConst;
             cameraPosition.x += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.x < 0 + screenWidthBoundary && MoveLeft() != null)
+        else if (Input.mousePosition.x < 0 + screenWidthBoundary && Move(Directions.Left) != null)
         {
             float speed = (Input.mousePosition.x - screenWidthBoundary) / (-screenWidthBoundary) * speedConst;
             cameraPosition.x -= speed * Time.deltaTime;
@@ -65,43 +72,25 @@ public class CameraMovement : MonoBehaviour
     /// Finds the grid at that position and returns the sprite at that location.
     /// </summary>
     /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveDown()
+    private Sprite Move(Directions direction)
     {
-        Vector3 cameraDown = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, -1));
-        Vector3Int bottomCoordinate = grid.WorldToCell(cameraDown);
-        return pathMap.GetSprite(bottomCoordinate);
-    }
-    /// <summary>
-    /// The function takes the screen to world point of the camera position. 
-    /// Finds the grid at that position and returns the sprite at that location.
-    /// </summary>
-    /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveUp()
-    {
-        Vector3 cameraUp = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height + 1));
-        Vector3Int topCoordinate = grid.WorldToCell(cameraUp);
-        return pathMap.GetSprite(topCoordinate);
-    }
-    /// <summary>
-    /// The function takes the screen to world point of the camera position. 
-    /// Finds the grid at that position and returns the sprite at that location.
-    /// </summary>
-    /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveRight()
-    {
-        Vector3 cameraRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + 1, Screen.height / 2));
-        Vector3Int rightCoordinate = grid.WorldToCell(cameraRight);
-        return pathMap.GetSprite(rightCoordinate);
-    }
-    /// <summary>
-    /// The function takes the screen to world point of the camera position. 
-    /// Finds the grid at that position and returns the sprite at that location.
-    /// </summary>
-    /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveLeft()
-    {
-        Vector3 cameraLeft = Camera.main.ScreenToWorldPoint(new Vector3(-1, Screen.height / 2));
-        Vector3Int leftCoordinate = grid.WorldToCell(cameraLeft);
-        return pathMap.GetSprite(leftCoordinate);
+        Vector3 usedScreenPoint = default;
+        switch (direction)
+        {
+            case Directions.Up:
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height + 1));
+                break;
+            case Directions.Down:
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, -1));
+                break;
+            case Directions.Left:
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(-1, Screen.height / 2));
+                break;
+            case Directions.Right:
+                usedScreenPoint = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + 1, Screen.height / 2));
+                break;
+        }
+        Vector3Int cellCoordinate = grid.WorldToCell(usedScreenPoint);
+        return pathMap.GetSprite(cellCoordinate);
     }
 }
