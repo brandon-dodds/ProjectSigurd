@@ -36,43 +36,27 @@ public class CameraMovement : MonoBehaviour
          * Speed is calculated by the normalisation algorithm here: https://www.codecademy.com/articles/normalization times a constant.
          * the speed is then added to the position * time taken for the frame to pass. (essentially v = u + at)
          */
-        if (Input.mousePosition.y > screenHeight - screenHeightBoundary)
+        if (Input.mousePosition.y > screenHeight - screenHeightBoundary && MoveUp() != null)
         {
-            float tempPositionY = cameraPosition.y;
             float speed = (Input.mousePosition.y - (screenHeight - screenHeightBoundary))
                 / (screenHeight - (screenHeight - screenHeightBoundary)) * speedConst;
-            tempPositionY += speed * Time.deltaTime;
-            if (MoveUp(tempPositionY) != null)
-                cameraPosition.y = tempPositionY;
+            cameraPosition.y += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.y < 0 + screenHeightBoundary)
+        else if (Input.mousePosition.y < 0 + screenHeightBoundary && MoveDown() != null)
         {
-            float tempPositionY = cameraPosition.y;
             float speed = (Input.mousePosition.y - screenHeightBoundary) / (-screenHeightBoundary) * speedConst;
-            tempPositionY -= speed * Time.deltaTime;
-            if (MoveBottom(tempPositionY) != null)
-                cameraPosition.y = tempPositionY;
+            cameraPosition.y -= speed * Time.deltaTime;
         }
-        if (Input.mousePosition.x > screenWidth - screenWidthBoundary)
+        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && MoveRight() != null)
         {
-            float tempPositionX = cameraPosition.x;
             float speed = (Input.mousePosition.x - (screenWidth - screenWidthBoundary)) 
                 / (screenWidth - (screenWidth - screenWidthBoundary)) * speedConst;
-            tempPositionX += speed * Time.deltaTime;
-            if(MoveRight(tempPositionX) != null)
-            {
-                cameraPosition.x = tempPositionX;
-            }
+            cameraPosition.x += speed * Time.deltaTime;
         }
-        else if (Input.mousePosition.x < 0 + screenWidthBoundary)
+        else if (Input.mousePosition.x < 0 + screenWidthBoundary && MoveLeft() != null)
         {
-            float tempPositionX = cameraPosition.x;
             float speed = (Input.mousePosition.x - screenWidthBoundary) / (-screenWidthBoundary) * speedConst;
-            tempPositionX -= speed * Time.deltaTime;
-            if(MoveLeft(tempPositionX) != null)
-            {
-                cameraPosition.x = tempPositionX;
-            }
+            cameraPosition.x -= speed * Time.deltaTime;
         }
         transform.position = cameraPosition;
     }
@@ -82,9 +66,9 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     /// <param name="down">The float value of how far the camera moves downward.</param>
     /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveBottom(float down)
+    private Sprite MoveDown()
     {
-        Vector3 cameraDown = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, 0 - down));
+        Vector3 cameraDown = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, -1));
         Vector3Int bottomCoordinate = grid.WorldToCell(cameraDown);
         return pathMap.GetSprite(bottomCoordinate);
     }
@@ -94,9 +78,9 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     /// <param name="up">The float value of how far the camera moves upward.</param>
     /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveUp(float up)
+    private Sprite MoveUp()
     {
-        Vector3 cameraUp = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height + up));
+        Vector3 cameraUp = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height + 1));
         Vector3Int topCoordinate = grid.WorldToCell(cameraUp);
         return pathMap.GetSprite(topCoordinate);
     }
@@ -106,9 +90,9 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     /// <param name="right">The float value of how far the camera moves rightward.</param>
     /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveRight(float right)
+    private Sprite MoveRight()
     {
-        Vector3 cameraRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + right, Screen.height / 2));
+        Vector3 cameraRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + 1, Screen.height / 2));
         Vector3Int rightCoordinate = grid.WorldToCell(cameraRight);
         return pathMap.GetSprite(rightCoordinate);
     }
@@ -118,9 +102,9 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     /// <param name="left">The float value of how far the camera moves leftward.</param>
     /// <returns>Returns the sprite of the block.</returns>
-    private Sprite MoveLeft(float left)
+    private Sprite MoveLeft()
     {
-        Vector3 cameraLeft = Camera.main.ScreenToWorldPoint(new Vector3(0 - left, Screen.height / 2));
+        Vector3 cameraLeft = Camera.main.ScreenToWorldPoint(new Vector3(-1, Screen.height / 2));
         Vector3Int leftCoordinate = grid.WorldToCell(cameraLeft);
         return pathMap.GetSprite(leftCoordinate);
     }
