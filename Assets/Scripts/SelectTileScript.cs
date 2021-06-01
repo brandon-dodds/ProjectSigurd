@@ -15,7 +15,7 @@ public class SelectTileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3Int mousePos = getMousePosition();
+        Vector3Int mousePos = GetMousePosition();
         if (!mousePos.Equals(previousMousePos))
         {
 
@@ -25,7 +25,7 @@ public class SelectTileScript : MonoBehaviour
         }
     }
 
-    Vector3Int getMousePosition()
+    Vector3Int GetMousePosition()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return grid.WorldToCell(mouseWorldPos);
