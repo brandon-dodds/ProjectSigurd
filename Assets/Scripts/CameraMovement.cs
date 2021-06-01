@@ -41,29 +41,48 @@ public class CameraMovement : MonoBehaviour
          * If the mouse x position or y position is greater than the height or width - boundary (1920 * 1920/3) for example.
          * Then I grab the camera position before it is changed.
          * Speed is calculated by the normalisation algorithm here: https://www.codecademy.com/articles/normalization times a constant.
-         * the speed is then added to the position * time taken for the frame to pass. (essentially v = u + at)
+         * the speed is then added to the position * time taken for the frame to pass.
          */
-        if (Input.mousePosition.y > screenHeight - screenHeightBoundary && GetSpriteFromDirectionAndPixels(Directions.Up) != null)
+        float initialPositionY = cameraPosition.y;
+        float initialPositionX = cameraPosition.x;
+        if (Input.mousePosition.y > screenHeight - screenHeightBoundary)
         {
             float speed = (Input.mousePosition.y - (screenHeight - screenHeightBoundary))
                 / (screenHeight - (screenHeight - screenHeightBoundary)) * speedConst;
-            cameraPosition.y += speed * Time.deltaTime;
+            float finalPosition = initialPositionY + (speed * Time.deltaTime);
+            if(GetSpriteFromDirectionAndPixels(Directions.Up, CalculateDifferenceInPixelSpace(initialPositionY, finalPosition)) != null)
+            {
+                cameraPosition.y = finalPosition;
+            }
         }
-        else if (Input.mousePosition.y < 0 + screenHeightBoundary && GetSpriteFromDirectionAndPixels(Directions.Down) != null)
+        else if (Input.mousePosition.y < 0 + screenHeightBoundary)
         {
             float speed = (Input.mousePosition.y - screenHeightBoundary) / (-screenHeightBoundary) * speedConst;
-            cameraPosition.y -= speed * Time.deltaTime;
+            float finalPosition = initialPositionY - (speed * Time.deltaTime);
+            if (GetSpriteFromDirectionAndPixels(Directions.Down, CalculateDifferenceInPixelSpace(initialPositionY, finalPosition)))
+            {
+                cameraPosition.y = finalPosition;
+            }
         }
-        if (Input.mousePosition.x > screenWidth - screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Right) != null)
+        if (Input.mousePosition.x > screenWidth - screenWidthBoundary)
         {
             float speed = (Input.mousePosition.x - (screenWidth - screenWidthBoundary)) 
                 / (screenWidth - (screenWidth - screenWidthBoundary)) * speedConst;
-            cameraPosition.x += speed * Time.deltaTime;
+            float finalPosition = initialPositionX + (speed * Time.deltaTime);
+            if (GetSpriteFromDirectionAndPixels(Directions.Right, CalculateDifferenceInPixelSpace(initialPositionX, finalPosition)) != null)
+            {
+                cameraPosition.x = finalPosition;
+            }
+
         }
         else if (Input.mousePosition.x < 0 + screenWidthBoundary && GetSpriteFromDirectionAndPixels(Directions.Left) != null)
         {
             float speed = (Input.mousePosition.x - screenWidthBoundary) / (-screenWidthBoundary) * speedConst;
-            cameraPosition.x -= speed * Time.deltaTime;
+            float finalPosition = initialPositionX - (speed * Time.deltaTime);
+            if (GetSpriteFromDirectionAndPixels(Directions.Left, CalculateDifferenceInPixelSpace(initialPositionX, finalPosition)) != null)
+            {
+                cameraPosition.x = finalPosition;
+            }
         }
         transform.position = cameraPosition;
     }
@@ -92,5 +111,11 @@ public class CameraMovement : MonoBehaviour
         }
         Vector3Int cellCoordinate = grid.WorldToCell(usedScreenPoint);
         return pathMap.GetSprite(cellCoordinate);
+    }
+    private float CalculateDifferenceInPixelSpace(float initialPosition, float finalPosition)
+    {
+        Vector3 beforeMoveScreenPos = Camera.main.WorldToScreenPoint(new Vector3(cameraPosition.x, initialPosition));
+        Vector3 afterMoveScreenPos = Camera.main.WorldToScreenPoint(new Vector3(cameraPosition.x, finalPosition));
+        return Mathf.Abs(afterMoveScreenPos.y - beforeMoveScreenPos.y);
     }
 }
