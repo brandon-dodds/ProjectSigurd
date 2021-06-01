@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5284913165977918632}
   - component: {fileID: 3017218841242518971}
   m_Layer: 31
-  m_Name: Grass
+  m_Name: Paths
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,33 +105,23 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -1, y: 1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: e8dd247d865501845bea5b521e856bfd, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 8b178b2d1ba5ca148a182d2cc9fe4cd9, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: cc08a9d3f5c77274e8d18b5c20359a19, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: a0961224903f5e743a88b99871e79741, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: e9effb56719938e4ebd78be338e0e0e4, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 899b5054daa9090488338ada77facc25, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data:
       e00: 1
       e01: 0
@@ -150,7 +140,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -224,7 +214,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5001251616018589131
+--- !u!114 &4411636187205215509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
