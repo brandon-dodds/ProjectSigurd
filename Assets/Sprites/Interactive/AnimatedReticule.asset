@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
-  m_Name: LeadGirlAnim
+  m_Name: AnimatedReticule
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -4893283616194854395, guid: 0aaf3206987a25a45bbb7c425bcb9b14, type: 3}
-  - {fileID: 5985681075404508030, guid: 0aaf3206987a25a45bbb7c425bcb9b14, type: 3}
-  - {fileID: 6069611199519030786, guid: 0aaf3206987a25a45bbb7c425bcb9b14, type: 3}
-  - {fileID: -7161743198103530104, guid: 0aaf3206987a25a45bbb7c425bcb9b14, type: 3}
-  m_MinSpeed: 1
-  m_MaxSpeed: 4
+  - {fileID: -4215299372277650961, guid: ce656a96e91bbb24fa534969bafedf4f, type: 3}
+  - {fileID: -3341417728219337930, guid: ce656a96e91bbb24fa534969bafedf4f, type: 3}
+  m_MinSpeed: 2
+  m_MaxSpeed: 2
   m_AnimationStartTime: 0
   m_AnimationStartFrame: 0
-  m_TileColliderType: 2
+  m_TileColliderType: 0

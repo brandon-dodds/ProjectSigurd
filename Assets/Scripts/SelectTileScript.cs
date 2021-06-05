@@ -5,7 +5,7 @@ public class SelectTileScript : MonoBehaviour
     private Grid grid;
     private Vector3Int previousMousePos = new Vector3Int();
     [SerializeField] private Tilemap interactiveMap;
-    [SerializeField] private Tile hoverTile = null;
+    [SerializeField] private AnimatedTile hoverTile = null;
     // Start is called before the first frame update
     void Start()
     {
